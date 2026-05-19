@@ -149,33 +149,60 @@ const BRANCHES_DATA: BranchDetail[] = [
   }
 ];
 
-// Custom SVGs representing the official YW / WO logo from the flyer
-const LogoSVG = () => (
-  <svg viewBox="0 0 100 100" width="48" height="48" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0px 2px 5px rgba(0,0,0,0.15))' }}>
-    <defs>
-      <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#f3cd5f" />
-        <stop offset="50%" stopColor="#d4af37" />
-        <stop offset="100%" stopColor="#b89025" />
-      </linearGradient>
-    </defs>
-    {/* Stylized circular "O" (Gold) */}
-    <circle cx="62" cy="50" r="21" fill="none" stroke="url(#goldGrad)" strokeWidth="6" />
-    
-    {/* Elegant stylized letter "W" or "Y" curve (White for readability on dark backgrounds) */}
-    <path 
-      d="M16 28 C 21 34, 25 74, 30 74 C 35 74, 40 45, 45 45 C 50 45, 55 74, 60 74 C 65 74, 70 34, 75 28" 
-      fill="none" 
-      stroke="#ffffff" 
-      strokeWidth="6" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-    />
-    
-    {/* Top gold circle dot */}
-    <circle cx="62" cy="20" r="5.5" fill="url(#goldGrad)" />
-  </svg>
-);
+// Custom SVG representing the official ROTA Laundry & Drycleaning logo (Royal Blue, Crimson Red, Gold)
+const LogoSVG = ({ light = false }: { light?: boolean }) => {
+  const blueColor = light ? '#ffffff' : '#003e9b';
+  const redColor = '#e30613';
+  const goldColor = '#e5a93b';
+  return (
+    <svg viewBox="0 0 420 100" width="210" height="50" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.1))' }}>
+      {/* 1. Left Emblem (R Seal) */}
+      <g transform="translate(10, 10)">
+        {/* Outer Circle */}
+        <circle cx="40" cy="40" r="37" fill="none" stroke={blueColor} strokeWidth="3" />
+        {/* Crescent Gold Trim at Bottom */}
+        <path d="M16 57 C 24 68, 56 68, 64 57" fill="none" stroke={goldColor} strokeWidth="2.5" />
+        
+        {/* Script 'R' in the center */}
+        <text x="40" y="49" fontFamily="'Georgia', 'Times New Roman', serif" fontSize="38" fontStyle="italic" fontWeight="bold" fill={blueColor} textAnchor="middle">
+          R
+        </text>
+        
+        {/* Curving QUICK CLEAN text path at the bottom */}
+        <defs>
+          <path id="quickCleanPath" d="M 18 55 A 28 28 0 0 0 62 55" />
+        </defs>
+        <text fontSize="7" fontFamily="'Poppins', sans-serif" fontWeight="900" fill={goldColor} letterSpacing="0.2">
+          <textPath href="#quickCleanPath" startOffset="50%" textAnchor="middle">
+            QUICK CLEAN
+          </textPath>
+        </text>
+      </g>
+
+      {/* 2. Right Text Elements */}
+      {/* Arabic Top text (Bright Red) */}
+      <text x="100" y="32" fontFamily="'Segoe UI', 'Arial', sans-serif" fontSize="21" fontWeight="bold" fill={redColor}>
+        روتا لغسيل الملابس
+      </text>
+
+      {/* ROTA LAUNDRY Middle text (Royal Blue / White, Bold Italic) */}
+      <text x="100" y="62" fontFamily="'Poppins', 'Arial Black', sans-serif" fontSize="28" fontStyle="italic" fontWeight="900" fill={blueColor} letterSpacing="-0.8">
+        ROTA LAUNDRY
+      </text>
+
+      {/* Slanted solid red block for DRYCLEANING */}
+      <g transform="translate(195, 68)">
+        {/* Slanted red path */}
+        <path d="M 0 0 L 180 0 L 175 22 L -10 22 Z" fill={redColor} />
+        {/* White DRYCLEANING Text */}
+        <text x="82" y="16" fontFamily="'Poppins', 'Arial', sans-serif" fontSize="13" fontWeight="bold" fill="#ffffff" textAnchor="middle" letterSpacing="1.5">
+          DRYCLEANING
+        </text>
+      </g>
+    </svg>
+  );
+};
+
 
 
 function App() {
@@ -329,11 +356,10 @@ function App() {
   if (isLoading) {
     return (
       <div className="preloader-overlay" role="progressbar" aria-label="Loading Website">
-        <div className="preloader-logo-wrap">
-          <LogoSVG />
-          <div className="preloader-status">ROTA LAUNDRY</div>
+        <div className="preloader-logo-wrap" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '15px' }}>
+          <LogoSVG light={true} />
         </div>
-        <div className="preloader-spinner"></div>
+        <div className="preloader-spinner" style={{ margin: '15px 0' }}></div>
         <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px' }}>
           INDUSTRIAL GARMENT CARE EXPERTS
         </div>
@@ -348,12 +374,8 @@ function App() {
          ========================================================================== */}
       <header className={`rota-header ${isHeaderSticky ? 'sticky' : ''}`} role="banner">
         <div className="container">
-          <a href="#home" className="rota-logo" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
-            <LogoSVG />
-            <div className="logo-text">
-              <span className="logo-text-main">ROTA LAUNDRY</span>
-              <span className="logo-text-sub">INDUSTRIAL & DRY CLEANING</span>
-            </div>
+          <a href="#home" className="rota-logo" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }} aria-label="ROTA Laundry Home">
+            <LogoSVG light={isHeaderSticky ? false : true} />
           </a>
 
           {/* Desktop Navigation Links */}
@@ -1001,12 +1023,8 @@ function App() {
           <div className="footer-grid">
             {/* Footer Column 1: Brand Info */}
             <div className="footer-column">
-              <div className="rota-logo" style={{ marginBottom: '10px' }}>
-                <LogoSVG />
-                <div className="logo-text">
-                  <span className="logo-text-main" style={{ color: '#fff' }}>ROTA LAUNDRY</span>
-                  <span className="logo-text-sub">ESTABLISHED 2001</span>
-                </div>
+              <div className="rota-logo" style={{ marginBottom: '15px' }}>
+                <LogoSVG light={true} />
               </div>
               <p className="footer-about-desc">
                 Over 22 years of trusted commercial garment care and high-capacity laundry solutions across the State of Qatar. Powered by 100+ skilled staff.

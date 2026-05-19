@@ -3,20 +3,20 @@
    ========================================================================== */
 
 :root {
-  /* Brand Color Palette */
-  --color-primary-dark: #07162c;      /* Deep Midnight Blue for elite corporate presence */
-  --color-primary: #0a2240;           /* Professional Deep Navy Blue */
-  --color-primary-medium: #11345d;    /* Slate Navy Blue */
-  --color-primary-light: #1b4b84;     /* Ocean Accent Blue */
+  /* Brand Color Palette - Updated to Royal Blue & Crimson Red (New 2026 Logo) */
+  --color-primary-dark: #051025;      /* Deep Royal Navy for high contrast background */
+  --color-primary: #003e9b;           /* Royal Blue from the new logo */
+  --color-primary-medium: #0c4cb4;    /* Medium Royal Blue */
+  --color-primary-light: #1b5fe0;     /* Ocean Accent Blue */
   
-  --color-accent-gold: #d4af37;       /* Brand Metallic Gold from Logo */
-  --color-accent-gold-light: #f3cd5f; /* Lighter highlight gold */
-  --color-accent-gold-dark: #b89025;  /* Deep rich gold */
-  --color-accent-gold-rgb: 212, 175, 55;
+  --color-accent-gold: #e30613;       /* Vibrant Crimson Red from the new logo */
+  --color-accent-gold-light: #ff2a3b; /* Vibrant Red */
+  --color-accent-gold-dark: #c1000b;  /* Deep Crimson Red */
+  --color-accent-gold-rgb: 227, 6, 19;
   
-  --color-bg-light: #f4f7fb;          /* Crisp Ice Blue/White for hygiene & cleanliness */
+  --color-bg-light: #f5f8fc;          /* Crisp Ice Blue/White for hygiene & cleanliness */
   --color-bg-white: #ffffff;
-  --color-bg-dark: #050d18;           /* Deep dark section background */
+  --color-bg-dark: #030a17;           /* Deep dark section background */
   
   --color-text-dark: #0f172a;         /* High-contrast Slate 900 for absolute readability */
   --color-text-medium: #334155;       /* Slate 700 for descriptions */
@@ -44,10 +44,10 @@
   --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   
-  --shadow-sm: 0 2px 8px rgba(7, 22, 44, 0.05);
-  --shadow-md: 0 10px 30px rgba(7, 22, 44, 0.08);
-  --shadow-lg: 0 20px 40px rgba(7, 22, 44, 0.12);
-  --shadow-gold: 0 10px 25px rgba(212, 175, 55, 0.25);
+  --shadow-sm: 0 2px 8px rgba(0, 62, 155, 0.05);
+  --shadow-md: 0 10px 30px rgba(0, 62, 155, 0.08);
+  --shadow-lg: 0 20px 40px rgba(0, 62, 155, 0.12);
+  --shadow-gold: 0 10px 25px rgba(227, 6, 19, 0.25); /* Crimson shadow */
   
   /* Scroll behavior */
   scroll-behavior: smooth;
