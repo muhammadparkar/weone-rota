@@ -207,14 +207,12 @@ function App() {
   const [modalStatus, setModalStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
   // References for dynamic scrolling check
-  const sectionRefs = {
-    home: useRef<HTMLElement | null>(null),
-    about: useRef<HTMLElement | null>(null),
-    services: useRef<HTMLElement | null>(null),
-    industries: useRef<HTMLElement | null>(null),
-    equipment: useRef<HTMLElement | null>(null),
-    contact: useRef<HTMLElement | null>(null)
-  };
+  const homeRef = useRef<HTMLElement | null>(null);
+  const aboutRef = useRef<HTMLElement | null>(null);
+  const servicesRef = useRef<HTMLElement | null>(null);
+  const industriesRef = useRef<HTMLElement | null>(null);
+  const equipmentRef = useRef<HTMLElement | null>(null);
+  const contactRef = useRef<HTMLElement | null>(null);
 
   // Preloader Timer (900ms simulation)
   useEffect(() => {
@@ -237,6 +235,15 @@ function App() {
       // Intersection detection logic
       const scrollPos = window.scrollY + 120;
       
+      const sectionRefs = {
+        home: homeRef,
+        about: aboutRef,
+        services: servicesRef,
+        industries: industriesRef,
+        equipment: equipmentRef,
+        contact: contactRef
+      };
+
       for (const [sectionId, ref] of Object.entries(sectionRefs)) {
         if (ref.current) {
           const top = ref.current.offsetTop;
@@ -256,14 +263,23 @@ function App() {
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
     setIsMobileMenuOpen(false);
-    const targetRef = sectionRefs[sectionId as keyof typeof sectionRefs];
-    if (targetRef.current) {
+    
+    let targetRef: React.RefObject<HTMLElement | null> | null = null;
+    if (sectionId === 'home') targetRef = homeRef;
+    else if (sectionId === 'about') targetRef = aboutRef;
+    else if (sectionId === 'services') targetRef = servicesRef;
+    else if (sectionId === 'industries') targetRef = industriesRef;
+    else if (sectionId === 'equipment') targetRef = equipmentRef;
+    else if (sectionId === 'contact') targetRef = contactRef;
+
+    if (targetRef && targetRef.current) {
       window.scrollTo({
         top: targetRef.current.offsetTop - 70,
         behavior: 'smooth'
       });
     }
   };
+
 
   // Form submission simulators
   const handleContactSubmit = (e: React.FormEvent) => {
@@ -396,7 +412,7 @@ function App() {
       <section 
         id="home" 
         className="rota-hero" 
-        ref={sectionRefs.home}
+        ref={homeRef}
         role="region" 
         aria-label="Hero Section"
       >
@@ -520,7 +536,7 @@ function App() {
       <section 
         id="about" 
         className="rota-about bg-watermark-pattern" 
-        ref={sectionRefs.about}
+        ref={aboutRef}
         role="region" 
         aria-label="About Us"
       >
@@ -596,7 +612,7 @@ function App() {
       <section 
         id="services" 
         className="rota-services" 
-        ref={sectionRefs.services}
+        ref={servicesRef}
         role="region" 
         aria-label="Services Offered"
       >
@@ -650,7 +666,7 @@ function App() {
       <section 
         id="industries" 
         className="rota-industries" 
-        ref={sectionRefs.industries}
+        ref={industriesRef}
         role="region" 
         aria-label="Target Industries"
       >
@@ -698,7 +714,7 @@ function App() {
       <section 
         id="equipment" 
         className="rota-equipment bg-watermark-pattern" 
-        ref={sectionRefs.equipment}
+        ref={equipmentRef}
         role="region" 
         aria-label="Equipment & Technology"
       >
@@ -779,7 +795,7 @@ function App() {
       <section 
         id="contact" 
         className="rota-contact" 
-        ref={sectionRefs.contact}
+        ref={contactRef}
         role="region" 
         aria-label="Contact and Locations"
       >
